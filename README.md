@@ -1,4 +1,4 @@
-# Modèle de DevContainer Python
+# MCC SKOS SCRIPT
 
 ## Objectif
 

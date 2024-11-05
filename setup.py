@@ -13,10 +13,22 @@ https://setuptools.pypa.io/en/latest/userguide/quickstart.html
 from setuptools import setup, find_packages
 
 setup(
-    name="gabarit-python",
-    version="0.1.0",
-    packages=find_packages(),
+    name="mcc_skos_service",
+    version="0.0.1",
+    description="Package for generating SKOS files from CSV",
+    author="Thalles Lima",
+    author_email="thalles.lima@systematix-qc.com",
+    packages=find_packages(where="src"),  # finds packages within 'src'
+    package_dir={"": "src"},  # maps the package root to 'src'
+    py_modules=["skos_service"],  # includes only the skos_service module
     install_requires=[
-        # Ajoutez les dépendances de votre projet ici
+        "pandas",
+        "rdflib",
+        "python-dotenv",
     ],
+    entry_points={
+        "console_scripts": [
+            "make-skos=skos_service:make_skos",
+        ],
+    },
 )

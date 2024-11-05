@@ -9,6 +9,8 @@ virtualenv/
 venv/
 env/
 fichiers/
+dist/
+
 
 # VSCode
 # .vscode/
@@ -16,3 +18,4 @@ fichiers/
 # Fichiers Importation
 *.xml
 *.csv
+*.egg-info

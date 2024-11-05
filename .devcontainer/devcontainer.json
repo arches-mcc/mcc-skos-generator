@@ -9,6 +9,7 @@
   "customizations": {
     "vscode": {
       "openFiles": ["README.md"],
+      "envFile": "/workspaces/mcc-skos-script/.devcontainer/.env", 
       "extensions": [
         "ms-python.python",
         "ms-python.vscode-pylance",
