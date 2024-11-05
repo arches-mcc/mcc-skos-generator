@@ -1,20 +1,14 @@
 # Modèle de DevContainer Python
 
-## Introduction
-
-Ce dépôt sert de gabarit pour la création de projets Python avec un environnement de développement standardisé en utilisant DevContainer. Il inclut toutes les configurations nécessaires pour démarrer rapidement un projet Python, y compris les dépendances courantes, les configurations/extensions de l'éditeur et les outils de développement.
-
-> **Note**: Pour commencer votre propre projet en utilisant ce gabarit, veuillez consulter la section [comment utiliser ce gabarit](./docs/comment-utiliser-gabarit.md).
-
 ## Objectif
 
-Fournir un environnement de développement cohérent et reproductible pour les projets Python.
+Ce projet permet de générer des objets SKOS (Simple Knowledge Organization System) en format RDF/XML en utilisant des listes de concepts contenues dans un fichier CSV. Il est particulièrement utile pour la création de taxonomies, vocabulaires contrôlés, ou ontologies.
 
 ## Ouvrir Directement dans un DevContainer
 
 Vous pouvez ouvrir ce projet directement dans un DevContainer dans VS Code en cliquant sur le lien ci-dessous:
 
-[![Ouvrir dans DevContainer](https://img.shields.io/static/v1?label=Open%20in%20Dev%20%20Container&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/arches-mcc/gabarit-python)
+[![Ouvrir dans DevContainer](https://img.shields.io/static/v1?label=Open%20in%20Dev%20%20Container&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/thalleslimasys/MCC-SKOS-script)
 
 > Attention : Lors de l'utilisation du bouton, le DevContainer sera toujours ouvert sur la branche main. Soyez attentif si votre travail doit être fait dans une autre branche.
 
@@ -58,7 +52,7 @@ Le fichier `.vscode/settings.json` contient les configurations spécifiques à l
 Voici une vue d'ensemble de la structure du projet incluse dans ce gabarit :
 
 ``` shell
-gabarit-python/
+mcc-skos-script/
 │
 ├── 📁.devcontainer/
 │ └── 📄devcontainer.json

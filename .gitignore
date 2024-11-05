@@ -8,6 +8,11 @@ virtualvenv/
 virtualenv/
 venv/
 env/
+fichiers/
 
 # VSCode
 # .vscode/
+
+# Fichiers Importation
+*.xml
+*.csv

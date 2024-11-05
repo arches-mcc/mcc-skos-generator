@@ -39,7 +39,8 @@
         "humao.rest-client",
         "ms-vsliveshare.vsliveshare",
         "Davidsekar.redis-xplorer",
-        "github.vscode-github-actions"
+        "github.vscode-github-actions",
+        "mechatroner.rainbow-csv"
       ]
     },
     "settings": {

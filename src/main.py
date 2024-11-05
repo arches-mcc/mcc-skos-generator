@@ -2,35 +2,8 @@
 Module principal pour démontrer une classe Greeter simple.
 """
 
-
-class Greeter:
-    """
-    Une classe simple Greeter pour démontrer une implémentation de base.
-
-    Méthodes
-    --------
-    greet(nom: str) -> str
-        Retourne un message de salutation pour le nom donné.
-    """
-
-    def greet(self, nom: str) -> str:
-        """
-        Retourne un message de salutation pour le nom donné.
-
-        Paramètres
-        ----------
-        nom : str
-            Le nom de la personne à saluer.
-
-        Retours
-        -------
-        str
-            Un message de salutation.
-        """
-        return f"Bonjour, {nom}!"
+from skos_service import make_skos
 
 
 if __name__ == "__main__":
-    greeter = Greeter()
-    message = greeter.greet("le monde")
-    print(message)
+    make_skos()    
