@@ -4,7 +4,7 @@ from rdflib.namespace import RDF, SKOS
 import uuid
 import math
 import os
-from settings import Settings
+from .settings import Settings
 
 
 def make_skos(

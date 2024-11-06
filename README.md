@@ -4,6 +4,8 @@
 
 Ce projet permet de générer des objets SKOS (Simple Knowledge Organization System) en format RDF/XML en utilisant des listes de concepts contenues dans un fichier CSV. Il est particulièrement utile pour la création de taxonomies, vocabulaires contrôlés, ou ontologies.
 
+> Pour savoir comment utiliser cette application, veuillez consulter [comment-utiliser.md](mcc-skos-script/docs/comment-utiliser.md).
+
 ## Ouvrir Directement dans un DevContainer
 
 Vous pouvez ouvrir ce projet directement dans un DevContainer dans VS Code en cliquant sur le lien ci-dessous:
@@ -12,7 +14,7 @@ Vous pouvez ouvrir ce projet directement dans un DevContainer dans VS Code en cl
 
 > Attention : Lors de l'utilisation du bouton, le DevContainer sera toujours ouvert sur la branche main. Soyez attentif si votre travail doit être fait dans une autre branche.
 
-## Contenu du Gabarit
+## Contenu du Projet
 
 - **Dockerfile** configuré pour Python 3.x.
 - **devcontainer.json** pour les paramètres spécifiques du DevContainer.
