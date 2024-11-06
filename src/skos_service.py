@@ -4,13 +4,14 @@ from rdflib.namespace import RDF, SKOS
 import uuid
 import math
 import os
-from .settings import Settings
+from settings import Settings
 
 
 def make_skos(
     csv_path=None,
     skos_prefLabel_columns=None,
     skos_definition_columns=None,
+    skos_notes_columns=None,
     namespace=None,
     scheme_id=None,
     scheme_name=None,
@@ -53,6 +54,7 @@ def make_skos(
     CONCEPT_NARROWER_DEFINITION = concept_narrower_definition or settings.CONCEPT_NARROWER_DEFINITION
     SKOS_PREFLABEL_COLUMNS = skos_prefLabel_columns or settings.SKOS_PREFLABEL_COLUMNS.split(',')
     SKOS_DEFINITION_COLUMNS = skos_definition_columns or settings.SKOS_DEFINITION_COLUMNS.split(',')
+    SKOS_NOTES_COLUMNS = skos_notes_columns or settings.SKOS_NOTES_COLUMNS.split(',')
     
     # Vérifier si un concept plus spécifique existe
     has_narrower = CONCEPT_NARROWER_NAME and CONCEPT_NARROWER_DEFINITION
@@ -60,6 +62,7 @@ def make_skos(
     # Charger les données du fichier CSV
     if not CSV_PATH:
         raise Exception(f"Invalid CSV file path: '{CSV_PATH}'" )
+
     df = pd.read_csv(CSV_PATH)
 
     # Créer le graphe RDF
@@ -117,11 +120,16 @@ def make_skos(
         g.add((concept_narrower_uri, SKOS.definition, Literal(CONCEPT_NARROWER_DEFINITION, lang="fr")))
         g.add((concept_uri, SKOS.narrower, concept_narrower_uri))
 
+
+    # times = 0
     # Ajouter des concepts au graphe
     for _, row in df.iterrows():
+        # if times == 2:
+        #     continue
         
         cleaned_list_definition = clear_data(SKOS_DEFINITION_COLUMNS, row)
         cleaned_list_prefLabel = clear_data(SKOS_PREFLABEL_COLUMNS, row)
+        cleaned_list_notes = clear_data(SKOS_NOTES_COLUMNS, row)
 
         # Créer un URI pour un item spécifique dans le concept plus spécifique
         concept_item_uri = get_new_uri(NS)
@@ -142,6 +150,15 @@ def make_skos(
             )
         )
         
+        if SKOS_NOTES_COLUMNS and cleaned_list_notes:
+            g.add(
+                (
+                    concept_item_uri,
+                    SKOS.note,
+                    Literal(" - ".join(cleaned_list_notes), lang="fr"),
+                )
+            )
+        # times += 1
         # Relier l'URI de l'item comme un concept plus spécifique
         if has_narrower:
             g.add((concept_narrower_uri, SKOS.narrower, concept_item_uri))

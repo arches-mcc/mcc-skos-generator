@@ -8,7 +8,7 @@
             "name": "Python Debugger: Current File",
             "type": "debugpy",
             "request": "launch",
-            "program": "/workspaces/mcc-skos-script/src/main.py",
+            "program": "/workspaces/mcc-skos-generator/src/main.py",
             "console": "integratedTerminal"
         }
     ]

@@ -9,7 +9,7 @@
   "customizations": {
     "vscode": {
       "openFiles": ["README.md"],
-      "envFile": "/workspaces/mcc-skos-script/.devcontainer/.env", 
+      "envFile": "/workspaces/mcc-skos-generator/.devcontainer/.env", 
       "extensions": [
         "ms-python.python",
         "ms-python.vscode-pylance",
@@ -41,7 +41,8 @@
         "ms-vsliveshare.vsliveshare",
         "Davidsekar.redis-xplorer",
         "github.vscode-github-actions",
-        "mechatroner.rainbow-csv"
+        "mechatroner.rainbow-csv",
+        "mikoz.black-py"
       ]
     },
     "settings": {

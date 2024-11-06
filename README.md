@@ -1,10 +1,10 @@
-# MCC SKOS SCRIPT
+# MCC SKOS GENERATOR
 
 ## Objectif
 
 Ce projet permet de générer des objets SKOS (Simple Knowledge Organization System) en format RDF/XML en utilisant des listes de concepts contenues dans un fichier CSV. Il est particulièrement utile pour la création de taxonomies, vocabulaires contrôlés, ou ontologies.
 
-> Pour savoir comment utiliser cette application, veuillez consulter [comment-utiliser.md](mcc-skos-script/docs/comment-utiliser.md).
+> Pour savoir comment utiliser cette application, veuillez consulter [comment-utiliser.md](mcc-skos-generator/docs/comment-utiliser.md).
 
 ## Ouvrir Directement dans un DevContainer
 
@@ -54,7 +54,7 @@ Le fichier `.vscode/settings.json` contient les configurations spécifiques à l
 Voici une vue d'ensemble de la structure du projet incluse dans ce gabarit :
 
 ``` shell
-mcc-skos-script/
+mcc-skos-generator/
 │
 ├── 📁.devcontainer/
 │ └── 📄devcontainer.json

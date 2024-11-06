@@ -1,4 +1,4 @@
-# Documentation pour MCC SKOS Script
+# Documentation pour MCC SKOS GENERATOR
 
 ## Installation
 
@@ -8,7 +8,7 @@ Assurez-vous que vous êtes dans le répertoire racine de votre projet, puis ex�
 pip install .
 ```
 
-Cela installera le script `mcc_skos_script` et ses dépendances.
+Cela installera le script `mcc_skos_generator` et ses dépendances.
 
 ## Utilisation
 
@@ -64,7 +64,7 @@ Voici les principaux paramètres acceptés par la fonction `make_skos()` :
 
 ## Pour tester
 
-Pour exécuter les tests, il suffit de lancer la commande depuis le répertoire `mcc-skos-script/` dans le terminal :
+Pour exécuter les tests, il suffit de lancer la commande depuis le répertoire `mcc-skos-generator/` dans le terminal :
 
 ``` shell
 PYTHONPATH=src python -m unittest discover tests/

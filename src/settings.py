@@ -24,6 +24,7 @@ class Settings:
         - CONCEPT_NARROWER_NAME : nom d'un concept plus spécifique (narrower).
         - CONCEPT_NARROWER_DEFINITION : définition d'un concept plus spécifique (narrower).
         - SKOS_DEFINITION_COLUMNS : colonnes du fichier CSV contenant les définitions SKOS.
+        - SKOS_NOTES_COLUMNS : colonnes du fichier CSV contenant les notes SKOS.
         - SKOS_PREFLABEL_COLUMNS : colonnes du fichier CSV contenant les labels préférentiels SKOS.
         """
         load_dotenv()
@@ -37,5 +38,6 @@ class Settings:
         self.CONCEPT_NARROWER_NAME = os.environ.get('CONCEPT_NARROWER_NAME')
         self.CONCEPT_NARROWER_DEFINITION = os.environ.get('CONCEPT_NARROWER_DEFINITION')
         self.SKOS_DEFINITION_COLUMNS = os.environ.get('SKOS_DEFINITION_COLUMNS')
+        self.SKOS_NOTES_COLUMNS = os.environ.get('SKOS_NOTES_COLUMNS')
         self.SKOS_PREFLABEL_COLUMNS = os.environ.get('SKOS_PREFLABEL_COLUMNS')
         
