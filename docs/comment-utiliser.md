@@ -26,7 +26,7 @@ Vous pouvez utiliser l'application de deux façons : directement avec le fichie
 
 2. Utilisation comme un package Python
 
-    Vous pouvez également importer skos_service dans un autre script Python et utiliser la fonction make_skos().
+    Vous pouvez également importer skos_service dans un autre script Python et utiliser la fonction `make_skos()`.
 
     ``` python
     from skos_service import make_skos
@@ -35,7 +35,7 @@ Vous pouvez utiliser l'application de deux façons : directement avec le fichie
     make_skos(
         csv_path="chemin/vers/votre_fichier.csv",
         namespace="http://exemple.com/namespace#",
-        scheme_id="exemple_scheme_id",
+        scheme_id="b3b6ffcf-1eda-4f80-8140-be52fc343ea2",
         scheme_name="Nom du Schéma",
         scheme_definition="Définition du Schéma",
         concept_main_name="Nom Principal du Concept",

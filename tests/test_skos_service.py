@@ -6,9 +6,22 @@ from rdflib import Graph
 from src.skos_service import make_skos
 
 class TestMakeSkos(unittest.TestCase):
+    """
+    Classe de test pour la fonction make_skos, qui génère un fichier SKOS à partir d'un fichier CSV.
+
+    Méthodes :
+        - setUp : Prépare les fichiers temporaires nécessaires pour les tests.
+        - tearDown : Nettoie les fichiers temporaires créés pendant les tests.
+        - test_make_skos_output_file_creation : Vérifie si le fichier de sortie SKOS est bien créé.
+        - test_make_skos_valid_rdf : Vérifie si le fichier SKOS de sortie est un fichier RDF valide.
+        - test_make_skos_concepts : Vérifie que les concepts SKOS sont correctement créés dans le fichier RDF.
+        - test_make_skos_namespace : Vérifie que les concepts SKOS utilisent le namespace spécifié.
+    """
 
     def setUp(self):
-        # Create a temporary CSV file for testing
+        """
+        Méthode exécutée avant chaque test pour créer un fichier CSV temporaire avec des données de test.
+        """
         self.csv_path = "test_data.csv"
         self.output_file = "fichier_skos.xml"
         data = {
@@ -19,39 +32,45 @@ class TestMakeSkos(unittest.TestCase):
         df.to_csv(self.csv_path, index=False)
 
     def tearDown(self):
-        # Clean up by removing temporary files created during tests
+        """
+        Méthode exécutée après chaque test pour supprimer les fichiers temporaires créés pendant les tests.
+        """
         if os.path.exists(self.csv_path):
             os.remove(self.csv_path)
         if os.path.exists(self.output_file):
             os.remove(self.output_file)
 
     def test_make_skos_output_file_creation(self):
-        """Test if the SKOS output file is created."""
+        """
+        Teste si le fichier de sortie SKOS est bien créé.
+        """
         make_skos(
             csv_path=self.csv_path,
-            skos_prefLabel_columns=["label"],
-            skos_definition_columns=["definition"],
-            namespace="http://example.org/test#",
+            skos_prefLabel_columns=["étiquette"],
+            skos_definition_columns=["définition"],
+            namespace="http://exemple.org/test#",
             scheme_id=str(uuid.uuid4()),
-            scheme_name="Test Scheme",
-            scheme_definition="A test concept scheme",
-            concept_main_name="Main Concept",
-            concept_main_definition="Main concept definition"
+            scheme_name="Schéma de Test",
+            scheme_definition="Un schéma de concept de test",
+            concept_main_name="Concept Principal",
+            concept_main_definition="Définition du concept principal"
         )
         self.assertTrue(os.path.exists(self.output_file))
 
     def test_make_skos_valid_rdf(self):
-        """Test if the SKOS output file is a valid RDF file."""
+        """
+        Teste si le fichier de sortie SKOS est un fichier RDF valide.
+        """
         make_skos(
             csv_path=self.csv_path,
-            skos_prefLabel_columns=["label"],
-            skos_definition_columns=["definition"],
-            namespace="http://example.org/test#",
+            skos_prefLabel_columns=["étiquette"],
+            skos_definition_columns=["définition"],
+            namespace="http://exemple.org/test#",
             scheme_id=str(uuid.uuid4()),
-            scheme_name="Test Scheme",
-            scheme_definition="A test concept scheme",
-            concept_main_name="Main Concept",
-            concept_main_definition="Main concept definition"
+            scheme_name="Schéma de Test",
+            scheme_definition="Un schéma de concept de test",
+            concept_main_name="Concept Principal",
+            concept_main_definition="Définition du concept principal"
         )
         # Load the generated RDF file and check for validity
         g = Graph()
@@ -59,17 +78,19 @@ class TestMakeSkos(unittest.TestCase):
         self.assertGreater(len(g), 0, "The RDF graph should have some triples.")
 
     def test_make_skos_concepts(self):
-        """Test if SKOS concepts are correctly created in the RDF output."""
+        """
+        Teste si les concepts SKOS sont correctement créés dans le fichier RDF de sortie.
+        """
         make_skos(
             csv_path=self.csv_path,
-            skos_prefLabel_columns=["label"],
-            skos_definition_columns=["definition"],
-            namespace="http://example.org/test#",
+            skos_prefLabel_columns=["étiquette"],
+            skos_definition_columns=["définition"],
+            namespace="http://exemple.org/test#",
             scheme_id=str(uuid.uuid4()),
-            scheme_name="Test Scheme",
-            scheme_definition="A test concept scheme",
-            concept_main_name="Main Concept",
-            concept_main_definition="Main concept definition"
+            scheme_name="Schéma de Test",
+            scheme_definition="Un schéma de concept de test",
+            concept_main_name="Concept Principal",
+            concept_main_definition="Définition du concept principal"
         )
         # Load the generated RDF file
         g = Graph()
@@ -88,18 +109,20 @@ class TestMakeSkos(unittest.TestCase):
         self.assertGreater(len(narrower_concepts), 0, "There should be narrower concepts linked to the main concept.")
 
     def test_make_skos_namespace(self):
-        """Test if the SKOS concepts use the specified namespace."""
+        """
+        Teste si les concepts SKOS utilisent le namespace spécifié.
+        """
         namespace = "http://example.org/test#"
         make_skos(
             csv_path=self.csv_path,
-            skos_prefLabel_columns=["label"],
-            skos_definition_columns=["definition"],
-            namespace=namespace,
-            scheme_id="test_scheme",
-            scheme_name="Test Scheme",
-            scheme_definition="A test concept scheme",
-            concept_main_name="Main Concept",
-            concept_main_definition="Main concept definition"
+            skos_prefLabel_columns=["étiquette"],
+            skos_definition_columns=["définition"],
+            namespace="http://exemple.org/test#",
+            scheme_id=str(uuid.uuid4()),
+            scheme_name="Schéma de Test",
+            scheme_definition="Un schéma de concept de test",
+            concept_main_name="Concept Principal",
+            concept_main_definition="Définition du concept principal"
         )
         # Load the generated RDF file
         g = Graph()
@@ -109,7 +132,7 @@ class TestMakeSkos(unittest.TestCase):
         uris = [str(s) for s, _, _ in g]
         for uri in uris:
             if uri.startswith("http"):
-                self.assertTrue(uri.startswith(namespace), "All URIs should use the specified namespace.")
+                self.assertTrue(uri.startswith(namespace), "Toutes les URI doivent utiliser l’espace de noms spécifié.")
 
 if __name__ == "__main__":
     unittest.main()
