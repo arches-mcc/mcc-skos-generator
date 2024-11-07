@@ -40,7 +40,7 @@ def make_skos(
     Raises:
     - Exception si le chemin du fichier CSV est invalide.
     """
-    
+        
     # Charger les paramètres du fichier settings
     settings = Settings()
     CSV_PATH = csv_path or settings.CSV_PATH
@@ -172,18 +172,21 @@ def make_skos(
 
     print(f"Fichier SKOS XML généré : {output_file}")
 
-def clear_data(list, row):
+def clear_data(columns, row):
     """
     Nettoyer les données d'une ligne du DataFrame en supprimant les valeurs NaN et None.
     
     Parameters:
-    - list : liste des colonnes à nettoyer.
+    - columns : liste des colonnes à nettoyer.
     - row : ligne du DataFrame.
     
     Returns:
     - Liste des valeurs nettoyées.
     """
-    row_data = row[list].tolist()
+    if isinstance(columns, str):
+        columns = columns.replace(" ", "").split(",")
+         
+    row_data = row[columns].tolist()
     cleaned_list = [
             str(item)
             for item in row_data
