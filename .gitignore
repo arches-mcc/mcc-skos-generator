@@ -14,6 +14,7 @@ dist/
 
 # VSCode
 # .vscode/
+.env
 
 # Fichiers Importation
 *.xml

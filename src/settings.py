@@ -28,6 +28,9 @@ class Settings:
         - SKOS_PREFLABEL_COLUMNS : colonnes du fichier CSV contenant les labels préférentiels SKOS.
         """
         load_dotenv()
+        self.MAIN_PROJECT_ROOT = os.environ.get('MAIN_PROJECT_ROOT')
+        self.OUTPUT_FILE_PATH = os.environ.get('OUTPUT_FILE_PATH')
+        self.OUTPUT_FILE_NAME = os.environ.get('OUTPUT_FILE_NAME')
         self.CSV_PATH = os.environ.get('CSV_PATH')
         self.NAMESPACE = os.environ.get('NAMESPACE')
         self.SCHEME_ID = os.environ.get('SCHEME_ID')
