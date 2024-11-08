@@ -4,7 +4,7 @@ import os
 import pandas as pd
 import uuid
 from rdflib import Graph, SKOS
-from src.skos_service import make_skos
+from src.mcc_skos_service.skos_service import make_skos
 
 class TestMakeSkos(unittest.TestCase):
     """

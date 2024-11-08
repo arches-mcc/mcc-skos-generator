@@ -3,7 +3,7 @@ from rdflib import Graph, URIRef, Literal, Namespace
 from rdflib.namespace import RDF, SKOS
 import uuid
 import math
-from src.settings import Settings
+from mcc_skos_service.settings import Settings
 from pathlib import Path
 
 

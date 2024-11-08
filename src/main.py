@@ -1,4 +1,4 @@
-from skos_service import make_skos  
+from mcc_skos_service.skos_service import make_skos  
    
 if __name__ == "__main__":
     """
