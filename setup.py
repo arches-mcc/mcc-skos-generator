@@ -18,9 +18,8 @@ setup(
     description="Package for generating SKOS files from CSV",
     author="Thalles Lima",
     author_email="thalles.lima@systematix-qc.com",
-    packages=find_packages(),
-    package_dir={"mcc_skos_service": "mcc_skos_service"},  
-    py_modules=["skos_service"],  # includes only the skos_service module
+    packages=find_packages(where="src"),  # finds packages within 'src'
+    package_dir={"": "src"},  # maps the package root to 'src'
     install_requires=[
         "pandas",
         "rdflib",
