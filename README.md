@@ -60,7 +60,9 @@ mcc-skos-generator/
 │ └── 📄devcontainer.json
 │
 ├── 📁src/
-│ ├── 📄init.py
+│ ├── 📄__init__.py
+│ ├── 📄skos_service.py
+│ ├── 📄settings.py
 │ └── 📄main.py
 │
 ├── 📁.github/
@@ -73,8 +75,8 @@ mcc-skos-generator/
 │ └── 📄extensions.json
 │
 ├── 📁tests/
-│ ├── 📄init.py
-│ └── 📄test_main.py
+│ ├── 📄__init__.py
+│ └── 📄test_skos_service.py
 │
 ├── 📄.gitignore
 ├── 📄README.md

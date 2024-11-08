@@ -18,7 +18,7 @@ setup(
     description="Package for generating SKOS files from CSV",
     author="Thalles Lima",
     author_email="thalles.lima@systematix-qc.com",
-    packages=find_packages(where="src"),  # finds packages within 'src'
+    packages=find_packages(),
     package_dir={"": "src"},  # maps the package root to 'src'
     py_modules=["skos_service"],  # includes only the skos_service module
     install_requires=[
