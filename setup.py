@@ -19,7 +19,7 @@ setup(
     author="Thalles Lima",
     author_email="thalles.lima@systematix-qc.com",
     packages=find_packages(),
-    package_dir={"": "src"},  # maps the package root to 'src'
+    package_dir={"mcc_skos_service": "mcc_skos_service"},  
     py_modules=["skos_service"],  # includes only the skos_service module
     install_requires=[
         "pandas",
