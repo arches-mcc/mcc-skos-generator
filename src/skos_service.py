@@ -3,8 +3,7 @@ from rdflib import Graph, URIRef, Literal, Namespace
 from rdflib.namespace import RDF, SKOS
 import uuid
 import math
-import os
-from settings import Settings
+from src.settings import Settings
 from pathlib import Path
 
 
