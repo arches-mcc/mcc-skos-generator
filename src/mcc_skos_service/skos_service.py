@@ -221,7 +221,7 @@ def make_skos(
         final_path = Path(f"{final_path}.xml")
         
     # Sauvegarder le graphe en format XML/RDF (SKOS)
-    g.serialize(destination=final_path, format="xml")
+    g.serialize(destination=str(final_path), format="xml")
 
     print(f"Fichier SKOS XML généré : {final_path}")
     return final_path
