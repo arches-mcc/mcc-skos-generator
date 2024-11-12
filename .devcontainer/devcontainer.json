@@ -1,7 +1,9 @@
 {
   "name": "Python DevContainer",
   "dockerFile": "Dockerfile",
-  "workspaceFolder": "/workspaces",
+  "dockerFile": "Dockerfile",  
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   "containerEnv": {
     "TZ": "America/Toronto",
     "PIP_ROOT_USER_ACTION": "ignore"
@@ -54,7 +56,7 @@
       "python.linting.flake8Enabled": true
     }
   },
-  "postCreateCommand": "export PROJECT_NAME=$(basename $(find . -maxdepth 1 -type d ! -name '.*')) && pip install -r /workspaces/$PROJECT_NAME/requirements.txt",
+  "postCreateCommand": "pip install -r /workspaces/${localWorkspaceFolderBasename}/requirements.txt",
   "features": {
     "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
     "ghcr.io/devcontainers/features/node:1": {
