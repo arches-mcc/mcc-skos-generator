@@ -34,8 +34,8 @@ Vous pouvez utiliser l'application de deux façons : directement avec le fichie
     # Configuration des paramètres pour le fichier SKOS
     make_skos(
         csv_path="/chemin/vers/votre_fichier.csv",
-        namespace="http://exemple.com/namespace#",
-        scheme_id="b3b6ffcf-1eda-4f80-8140-be52fc343ea2",
+        namespace="http://mcc:8000/", 
+        scheme_id="b3b6ffcf-1eda-4f80-8140-be52fc343ea2", # Laisser vide pour un nouveau Thésaurus
         scheme_name="Nom du Schéma",
         scheme_definition="Définition du Schéma",
         concept_main_name="Nom Principal du Concept",
