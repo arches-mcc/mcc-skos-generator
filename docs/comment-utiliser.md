@@ -53,19 +53,45 @@ Vous pouvez utiliser l'application de deux façons : directement avec le fichie
 
     Cela permet de personnaliser les paramètres et de créer un fichier **SKOS** en fonction de vos besoins.
 
-## Paramètres de make_skos
+### Paramètres
 
-Voici les principaux paramètres acceptés par la fonction `make_skos()` :
+#### Obligatoires
 
-- `csv_path` : chemin vers le fichier CSV.
-- `namespace` : namespace RDF pour les URIs.
-- `scheme_id` : identifiant du schéma de concept.
-- `scheme_name` : nom du schéma de concept.
-- `scheme_definition` : définition du schéma de concept.
-- `concept_main_name` : nom du concept principal.
-- `concept_main_definition` : définition du concept principal.
-- `concept_narrower_name` : nom du concept plus spécifique.
-- `concept_narrower_definition` : définition du concept plus spécifique.
+`csv_path (str)`: Chemin complet vers le fichier CSV contenant les données à convertir en SKOS.
+
+`namespace (str)`: URI de base pour l'espace de noms RDF utilisé dans les identifiants des concepts.
+
+`scheme_id (str)`: Identifiant unique pour le schéma de concepts SKOS. Laisser vide pour un nouveau Thésaurus.
+
+`scheme_name (str)`: Nom du schéma de concepts, utilisé pour représenter le skos:ConceptScheme.
+
+`scheme_definition (str)`: Définition descriptive associée au schéma de concepts.
+
+`concept_main_name (str)`: Nom du concept principal (root concept).
+
+`concept_main_definition (str)`: Définition textuelle du concept principal, utilisée dans le skos:definition.
+
+#### Optionnels
+
+`concept_narrower_name (str)`: Nom du concept plus spécifique (narrower concept).
+
+`concept_narrower_definition (str)`: Définition du concept plus spécifique.
+
+`skos_prefLabel_columns (list)`: Liste des colonnes du CSV utilisées pour générer les labels préférentiels (`skos:prefLabel`).
+
+- Exemple : ["arrcod", "arrnom", "arrville"].
+  
+`skos_definition_columns (list)`: Liste des colonnes du CSV pour créer les définitions (`skos:definition`).
+
+- Exemple : ["arrville", "arrcode", "arradr1"].
+
+`skos_notes_columns (list)`:Liste des colonnes pour ajouter des notes (`skos:note`) aux concepts.
+
+- Exemple : ["arrdateproelec", "president", "directeur"].
+
+`output_file_name (str)`: Nom du fichier XML généré.
+
+`output_file_path (str)`: Chemin complet où le fichier XML sera sauvegardé. Par défaut, il est enregistré dans le répertoire courant.
 
 ## Pour tester
 
