@@ -33,7 +33,7 @@ Vous pouvez utiliser l'application de deux façons : directement avec le fichie
 
     # Configuration des paramètres pour le fichier SKOS
     make_skos(
-        csv_path="chemin/vers/votre_fichier.csv",
+        csv_path="/chemin/vers/votre_fichier.csv",
         namespace="http://exemple.com/namespace#",
         scheme_id="b3b6ffcf-1eda-4f80-8140-be52fc343ea2",
         scheme_name="Nom du Schéma",
@@ -41,7 +41,12 @@ Vous pouvez utiliser l'application de deux façons : directement avec le fichie
         concept_main_name="Nom Principal du Concept",
         concept_main_definition="Définition Principale du Concept",
         concept_narrower_name="Nom du Concept Plus Spécifique",
-        concept_narrower_definition="Définition du Concept Plus Spécifique"
+        concept_narrower_definition="Définition du Concept Plus Spécifique",
+        skos_prefLabel_columns=["colonne1", "colonne2"],
+        skos_definition_columns=["colonne3", "colonne4"],
+        skos_notes_columns=["colonne5", "colonne6"],
+        output_file_name="fichier_skos.xml",
+        output_file_path="/chemin/vers/sortie/"
     )
 
     ```

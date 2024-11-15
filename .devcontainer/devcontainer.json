@@ -6,7 +6,8 @@
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   "containerEnv": {
     "TZ": "America/Toronto",
-    "PIP_ROOT_USER_ACTION": "ignore"
+    "PIP_ROOT_USER_ACTION": "ignore",
+    "WORKSPACE_FOLDER": "/workspaces/${localWorkspaceFolderBasename}"
   },
   "customizations": {
     "vscode": {
