@@ -17,8 +17,8 @@ class Settings:
         - CSV_PATH : chemin vers le fichier CSV contenant les données.
         - NAMESPACE : namespace RDF à utiliser pour les URIs.
         - SCHEME_ID : identifiant unique pour le schéma de concept.
-        - SCHEMA_NAME : nom du schéma de concept.
-        - SCHEMA_DEFINITION : définition du schéma de concept.
+        - SCHEME_NAME : nom du schéma de concept.
+        - SCHEME_DEFINITION : définition du schéma de concept.
         - CONCEPT_MAIN_NAME : nom principal du concept.
         - CONCEPT_MAIN_DEFINITION : définition principale du concept.
         - CONCEPT_NARROWER_NAME : nom d'un concept plus spécifique (narrower).
@@ -34,8 +34,8 @@ class Settings:
         self.CSV_PATH = os.environ.get('CSV_PATH')
         self.NAMESPACE = os.environ.get('NAMESPACE')
         self.SCHEME_ID = os.environ.get('SCHEME_ID')
-        self.SCHEMA_NAME = os.environ.get('SCHEMA_NAME')
-        self.SCHEMA_DEFINITION = os.environ.get('SCHEMA_DEFINITION')
+        self.SCHEME_NAME = os.environ.get('SCHEME_NAME')
+        self.SCHEME_DEFINITION = os.environ.get('SCHEME_DEFINITION')
         self.CONCEPT_MAIN_NAME = os.environ.get('CONCEPT_MAIN_NAME')
         self.CONCEPT_MAIN_DEFINITION = os.environ.get('CONCEPT_MAIN_DEFINITION')
         self.CONCEPT_NARROWER_NAME = os.environ.get('CONCEPT_NARROWER_NAME')
@@ -43,4 +43,9 @@ class Settings:
         self.SKOS_DEFINITION_COLUMNS = os.environ.get('SKOS_DEFINITION_COLUMNS')
         self.SKOS_NOTES_COLUMNS = os.environ.get('SKOS_NOTES_COLUMNS')
         self.SKOS_PREFLABEL_COLUMNS = os.environ.get('SKOS_PREFLABEL_COLUMNS')
+        self.IMBRIQUE = os.environ.get('IMBRIQUE') == 'True'
+        self.SKOS_MAIN_CONCEPT_PREFLABEL_COLUMNS = os.environ.get('SKOS_MAIN_CONCEPT_PREFLABEL_COLUMNS')
+        self.SKOS_MAIN_CONCEPT_DESCRIPTION_COLUMNS = os.environ.get('SKOS_MAIN_CONCEPT_DESCRIPTION_COLUMNS')
+        self.SKOS_NARROW_CONCEPT_PREFLABEL_COLUMNS = os.environ.get('SKOS_NARROW_CONCEPT_PREFLABEL_COLUMNS')
+        self.SKOS_NARROW_CONCEPT_DESCRIPTION_COLUMNS = os.environ.get('SKOS_NARROW_CONCEPT_DESCRIPTION_COLUMNS')
         
