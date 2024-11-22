@@ -8,34 +8,40 @@ from pathlib import Path
 
 
 def make_skos(
-    imbrique = None,
-    main_project_root=None,
-    csv_path=None,
-    skos_prefLabel_columns=None,
-    skos_definition_columns=None,
-    skos_notes_columns=None,
-    namespace=None,
-    scheme_id=None,
-    scheme_name=None,
-    scheme_definition=None,
-    concept_main_name=None,
-    concept_main_definition=None,
-    skos_main_concept_preflabel_columns=None,
-    skos_main_concept_description_columns=None,
-    concept_narrower_name=None,
-    concept_narrower_definition=None,    
-    skos_narrow_concept_preflabel_columns=None,
-    skos_narrow_concept_description_columns=None,
-    output_file_name = None,
-    output_file_path = None,
+    imbrique: bool = None,
+    csv_separateur: str  = None,
+    main_project_root: str=None,
+    csv_path: str =None,
+    skos_prefLabel_columns: str =None,
+    skos_definition_columns: str =None,
+    skos_notes_columns: str =None,
+    namespace: str =None,
+    scheme_id: str =None,
+    scheme_name: str =None,
+    scheme_definition: str =None,
+    concept_main_name: str =None,
+    concept_main_definition: str =None,
+    skos_main_concept_preflabel_columns: str =None,
+    skos_main_concept_description_columns: str =None,
+    concept_narrower_name: str =None,
+    concept_narrower_definition: str =None,    
+    skos_narrow_concept_preflabel_columns: str =None,
+    skos_narrow_concept_description_columns: str =None,
+    output_file_name: str  = None,
+    output_file_path: str  = None,
 ):    
     """
     Génère un fichier SKOS (Simple Knowledge Organization System) à partir d'un fichier CSV, avec la possibilité d'inclure des concepts imbriqués.
 
+    ### Description :
+    Si `imbrique=True`, les concepts principaux ainsi que les concepts plus spécifiques ("narrow concepts") seront générés dynamiquement à partir des colonnes spécifiées dans le fichier CSV. Par conséquent, dans ce cas, les paramètres `skos_main_concept_preflabel_columns` sont obligatoires, car ils définissent les labels des concepts principaux.
+    Si les concepts principaux (ou spécifiques) sont toujours les mêmes, il faut utilisé `imbrique=False` et remplir `concept_main_name`.
+
     ### Paramètres :
-    - **imbrique** (bool, optionnel) : Indique si les concepts doivent être imbriqués. Par défaut, `False`.
+    - **imbrique** (bool, optionnel) : Indique si les concepts doivent être imbriqués. Par défaut, `False`. Si `True`, des valeurs dynamiques pour les concepts principaux et imbriqués seront extraites du CSV.
     - **main_project_root** (str, optionnel) : Répertoire racine du projet.
     - **csv_path** (str) : Chemin vers le fichier CSV contenant les données source.
+    - **csv_separateur** (str, optionnel) : Séparateur utilisé dans le fichier CSV (par défaut `,`).
     - **skos_prefLabel_columns** (list, optionnel) : Colonnes pour le label préférentiel (`skos:prefLabel`).
     - **skos_definition_columns** (list, optionnel) : Colonnes pour la définition (`skos:definition`).
     - **skos_notes_columns** (list, optionnel) : Colonnes pour les notes supplémentaires (`skos:note`).
@@ -43,12 +49,12 @@ def make_skos(
     - **scheme_id** (str, optionnel) : Identifiant unique pour le schéma SKOS.
     - **scheme_name** (str) : Nom du schéma SKOS.
     - **scheme_definition** (str) : Définition du schéma SKOS.
-    - **concept_main_name** (str, optionnel) : Nom du concept principal.
-    - **concept_main_definition** (str, optionnel) : Définition du concept principal.
-    - **skos_main_concept_preflabel_columns** (list, optionnel) : Colonnes pour les labels préférentiels des concepts principaux.
+    - **concept_main_name** (str, optionnel) : Nom du concept principal (non utilisé si `imbrique=True`).
+    - **concept_main_definition** (str, optionnel) : Définition du concept principal (non utilisé si `imbrique=True`).
+    - **skos_main_concept_preflabel_columns** (list, optionnel) : Colonnes pour les labels préférentiels des concepts principaux. **Obligatoire si `imbrique=True`**.
     - **skos_main_concept_description_columns** (list, optionnel) : Colonnes pour les descriptions des concepts principaux.
-    - **concept_narrower_name** (str, optionnel) : Nom du concept plus spécifique.
-    - **concept_narrower_definition** (str, optionnel) : Définition du concept plus spécifique.
+    - **concept_narrower_name** (str, optionnel) : Nom du concept plus spécifique (non utilisé si `imbrique=True`).
+    - **concept_narrower_definition** (str, optionnel) : Définition du concept plus spécifique (non utilisé si `imbrique=True`).
     - **skos_narrow_concept_preflabel_columns** (list, optionnel) : Colonnes pour les labels des concepts imbriqués.
     - **skos_narrow_concept_description_columns** (list, optionnel) : Colonnes pour les descriptions des concepts imbriqués.
     - **output_file_name** (str, optionnel) : Nom du fichier SKOS généré.
@@ -58,18 +64,21 @@ def make_skos(
     - **str** : Chemin complet du fichier SKOS généré.
 
     ### Exceptions :
-    - `FileNotFoundError` : Si le chemin CSV est invalide.
-    - `ValueError` : Si certains paramètres obligatoires sont manquants.
+    - `FileNotFoundError` : Si le chemin du fichier CSV est invalide.
+    - `ValueError` : Si `skos_main_concept_preflabel_columns` est `None` lorsque `imbrique=True`.
+    - `ValueError` : Si d'autres paramètres obligatoires sont manquants.
 
     ### Exemple :
     ```python
     make_skos(
+        imbrique=True,
         csv_path="/path/to/file.csv",
+        csv_separateur=";",
         namespace="http://example.org/namespace",
         scheme_name="Exemple de schéma",
         scheme_definition="Définition du schéma",
-        concept_main_name="Concept principal",
-        concept_main_definition="Définition principale",
+        skos_main_concept_preflabel_columns=["NomConcept"],
+        skos_narrow_concept_preflabel_columns=["NomSousConcept"],
         output_file_name="thesaurus.xml",
         output_file_path="/path/to/output"
     )
@@ -82,6 +91,7 @@ def make_skos(
     params = {
         'main_project_root': main_project_root,
         'csv_path': csv_path,
+        'csv_separateur': csv_separateur,
         'namespace': namespace,
         'scheme_id': scheme_id,
         'scheme_name': scheme_name,
@@ -104,19 +114,10 @@ def make_skos(
     
     # Attribuer des valeurs par défaut depuis les paramètres si le paramètre est None
     params = load_params(settings, params)
-
-    params['output_file_name'] = params['output_file_name'] or str(uuid.uuid4())
-    params['output_file_path'] = params['output_file_path'] or '/'
-    params['main_project_root'] = params['main_project_root'] or '/workspaces'
-    params['imbrique'] = params['imbrique'] or False
     
     # Vérifier si un concept plus spécifique existe
-    has_narrower = params['concept_narrower_name'] and params['concept_narrconcept_narrower_definitionower_name'] 
+    has_narrower = bool(params['concept_narrower_name'])    
     
-    # Charger les données du fichier CSV
-    if not params['csv_path']:
-        raise FileNotFoundError(f"Invalid CSV file path: '{params['csv_path']}'" )
-
     # Créer le graphe RDF
     g = Graph()
 
@@ -152,13 +153,12 @@ def make_skos(
                                             False,
                                             concept_uri) 
 
-    df = pd.read_csv(params['csv_path'])
-    # times = 0
+    
+    # Charger les données du fichier CSV
+    df = pd.read_csv(params['csv_path'], encoding='utf-8', sep=params['csv_separateur'])
+    
     # Ajouter des concepts au graphe
     for _, row in df.iterrows():
-        # if times == 2:
-        #     continue
-        
         cleaned_list_definition = clear_data(params['skos_definition_columns'], row)
         cleaned_list_prefLabel = clear_data(params['skos_prefLabel_columns'], row)
         cleaned_list_notes = clear_data(params['skos_notes_columns'], row)
@@ -172,8 +172,6 @@ def make_skos(
                        concept_scheme_uri,
                        False,
                         concept_uri if not has_narrower else concept_narrower_uri)
-               
-        # times += 1
         
     final_path = Path(params['main_project_root'],params['output_file_path'], params['output_file_name'])
     
@@ -205,19 +203,14 @@ def make_skos_narrowed(params, g: Graph, NS: Namespace, concept_scheme_uri: URIR
     ### Retour :
     - **Path** : Chemin complet du fichier SKOS généré.
     """
-    #times = 0
-    df = pd.read_csv(params['csv_path'], encoding='utf_8')
+    df = pd.read_csv(params['csv_path'], encoding='utf-8', sep=params['csv_separateur'])
     main_concepts = {}
-    for _, row in df.iterrows():
-        # if times == 10:
-        #     continue
-        
+    for _, row in df.iterrows(): 
         main_concept_list_prefLabel = clear_data(params['skos_main_concept_preflabel_columns'], row)
         main_concept_list_description = clear_data(params['skos_main_concept_description_columns'], row)
         narrow_concept_list_prefLabel = clear_data(params['skos_narrow_concept_preflabel_columns'], row)
         narrow_concept_list_description = clear_data(params['skos_narrow_concept_description_columns'], row)
-        
-        
+                
         try:            
             main_concept_uri = main_concepts[main_concept_list_prefLabel]
         except KeyError:           
@@ -256,9 +249,6 @@ def make_skos_narrowed(params, g: Graph, NS: Namespace, concept_scheme_uri: URIR
                            concept_scheme_uri,
                            False,
                             main_concept_uri if not has_narrower else narrow_concept_uri)
-        
-        
-        # times+=1
     
     final_path = Path(params['main_project_root'],params['output_file_path'], params['output_file_name'])
     
@@ -286,6 +276,30 @@ def load_params(settings, params):
     for key, value in params.items():
         if value is None:
             params[key] = getattr(settings, key.upper(), None)
+            
+    params['output_file_name'] = params['output_file_name'] or str(uuid.uuid4())
+    params['output_file_path'] = params['output_file_path'] or '/'
+    params['main_project_root'] = params['main_project_root'] or '/workspaces'
+    params['imbrique'] = params['imbrique'] or False
+    params['csv_separateur'] = params['csv_separateur'] or ','
+    
+    
+    if not params['csv_path']:
+        raise FileNotFoundError(f"Invalid CSV file path: '{params['csv_path']}'" )
+    
+    # Vérifier si imbrique=True, que les colonnes nécessaires sont spécifiées
+    if params['imbrique']:
+        if not params['skos_main_concept_preflabel_columns'] or params['skos_main_concept_preflabel_columns'] == ['']:
+            raise ValueError(
+                "Lorsque 'imbrique=True', 'skos_main_concept_preflabel_columns' est obligatoire. "
+                "Veuillez spécifier les colonnes pour les labels des concepts principaux."
+            )
+    else:
+        if not params['concept_main_name']:
+            raise ValueError(
+                "Lorsque 'imbrique=False', 'concept_main_name' est obligatoire. "
+                "Veuillez fournir un nom pour le concept principal."
+            )
     
     return params
 
@@ -364,9 +378,12 @@ def clear_data(columns, row):
     """
     columns = normalize_str(columns)
     
-    if columns == ['']:
+    if columns == [''] or columns is None:
         return ''
-         
+    
+    if not set(columns).issubset(row.index):
+        raise KeyError(f"Colonnes manquants: {set(columns) - set(row.index)}")
+    
     row_data = row[columns].tolist()
     cleaned_list = [
             str(item)

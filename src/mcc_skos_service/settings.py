@@ -32,6 +32,7 @@ class Settings:
         self.OUTPUT_FILE_PATH = os.environ.get('OUTPUT_FILE_PATH')
         self.OUTPUT_FILE_NAME = os.environ.get('OUTPUT_FILE_NAME')
         self.CSV_PATH = os.environ.get('CSV_PATH')
+        self.CSV_SEPARATEUR = os.environ.get('CSV_SEPARATEUR')
         self.NAMESPACE = os.environ.get('NAMESPACE')
         self.SCHEME_ID = os.environ.get('SCHEME_ID')
         self.SCHEME_NAME = os.environ.get('SCHEME_NAME')

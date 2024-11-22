@@ -33,22 +33,17 @@ Vous pouvez utiliser l'application de deux façons : directement avec le fichie
 
     # Configuration des paramètres pour le fichier SKOS
     make_skos(
-        csv_path="/chemin/vers/votre_fichier.csv",
-        namespace="http://mcc:8000/", 
-        scheme_id="b3b6ffcf-1eda-4f80-8140-be52fc343ea2", # Laisser vide pour un nouveau Thésaurus
-        scheme_name="Nom du Schéma",
-        scheme_definition="Définition du Schéma",
-        concept_main_name="Nom Principal du Concept",
-        concept_main_definition="Définition Principale du Concept",
-        concept_narrower_name="Nom du Concept Plus Spécifique",
-        concept_narrower_definition="Définition du Concept Plus Spécifique",
-        skos_prefLabel_columns=["colonne1", "colonne2"],
-        skos_definition_columns=["colonne3", "colonne4"],
-        skos_notes_columns=["colonne5", "colonne6"],
-        output_file_name="fichier_skos.xml",
-        output_file_path="/chemin/vers/sortie/"
+        imbrique=True,
+        csv_path="/path/to/file.csv",
+        csv_separateur=";",
+        namespace="http://example.org/namespace",
+        scheme_name="Exemple de schéma",
+        scheme_definition="Définition du schéma",
+        skos_main_concept_preflabel_columns=["NomConcept"],
+        skos_narrow_concept_preflabel_columns=["NomSousConcept"],
+        output_file_name="thesaurus.xml",
+        output_file_path="/path/to/output"
     )
-
     ```
 
     Cela permet de personnaliser les paramètres et de créer un fichier **SKOS** en fonction de vos besoins.
@@ -67,17 +62,27 @@ Vous pouvez utiliser l'application de deux façons : directement avec le fichie
 
 `scheme_definition (str)`: Définition descriptive associée au schéma de concepts.
 
-`concept_main_name (str)`: Nom du concept principal (root concept).
-
-`concept_main_definition (str)`: Définition textuelle du concept principal, utilisée dans le skos:definition.
-
 #### Optionnels
 
-`concept_narrower_name (str)`: Nom du concept plus spécifique (narrower concept).
+`imbrique (bool)`: Indique si les concepts doivent être imbriqués. Par défaut, False. Si True, des valeurs dynamiques pour les concepts principaux et imbriqués seront extraites du CSV.
 
-`concept_narrower_definition (str)`: Définition du concept plus spécifique.
+`concept_main_name (str)`: Nom du concept principal (root concept). Non utilisé si `imbrique=True`.
 
-`skos_prefLabel_columns (list)`: Liste des colonnes du CSV utilisées pour générer les labels préférentiels (`skos:prefLabel`).
+`concept_main_definition (str)`: Définition textuelle du concept principal, utilisée dans le skos:definition. Non utilisé si `imbrique=True`.
+
+`concept_narrower_name (str)`: Nom du concept plus spécifique (narrower concept). Non utilisé si `imbrique=True`.
+
+`concept_narrower_definition (str)`: Définition du concept plus spécifique. Non utilisé si `imbrique=True`.
+
+`skos_main_concept_description_columns (list)` : Colonnes pour les descriptions des concepts principaux. Utilisé si `imbrique=True`.
+
+`skos_main_concept_preflabel_columns (list)`:  Colonnes pour les labels préférentiels des concepts principaux. Obligatoire si `imbrique=True`.
+
+`skos_narrow_concept_preflabel_columns  (list)` : Colonnes pour les labels des concepts plus spécifique imbriqués. Utilisé si `imbrique=True`.
+
+`skos_narrow_concept_description_columns  (list)` : Colonnes pour les descriptions des concepts plus spécifique imbriqués. Utilisé si `imbrique=True`.
+
+`skos_prefLabel_columns (list)`: Liste des colonnes du CSV utilisées pour générer les labels préférentiels (`skos:prefLabel`). Obligatoire si `imbrique=False`.
 
 - Exemple : ["arrcod", "arrnom", "arrville"].
   

@@ -4,7 +4,7 @@ import os
 import pandas as pd
 import uuid
 from rdflib import Graph, SKOS
-from src.mcc_skos_service.skos_service import make_skos
+from mcc_skos_service.skos_service import make_skos
 
 class TestMakeSkos(unittest.TestCase):
     """
@@ -53,6 +53,8 @@ class TestMakeSkos(unittest.TestCase):
         """Vérifie le fonctionnement avec les colonnes passées comme listes."""
         self.full_output_file = make_skos(
             csv_path=self.csv_path,
+            imbrique=False,
+            csv_separateur=',',
             skos_prefLabel_columns=["label"],
             skos_definition_columns=["definition"],
             skos_notes_columns=["note"],
@@ -70,6 +72,8 @@ class TestMakeSkos(unittest.TestCase):
         """Vérifie le fonctionnement avec les colonnes passées comme chaîne de caractères."""
         self.full_output_file = make_skos(
             csv_path=self.csv_path,
+            imbrique=False,
+            csv_separateur=',',
             skos_prefLabel_columns="label, label2, label3",
             skos_definition_columns="definition,definition2,definition3",
             skos_notes_columns="note,note2,note3",
@@ -87,6 +91,8 @@ class TestMakeSkos(unittest.TestCase):
         """Teste si le fichier de sortie SKOS est bien créé."""
         self.full_output_file = make_skos(
             csv_path=self.csv_path,
+            csv_separateur=',',
+            imbrique=False,
             skos_prefLabel_columns=["label"],
             skos_definition_columns=["definition"],
             skos_notes_columns=["note"],
@@ -104,6 +110,8 @@ class TestMakeSkos(unittest.TestCase):
         """Teste si le fichier de sortie SKOS est un fichier RDF valide."""
         self.full_output_file = make_skos(
             csv_path=self.csv_path,
+            csv_separateur=',',
+            imbrique=False,
             skos_prefLabel_columns=["label"],
             skos_definition_columns=["definition"],
             skos_notes_columns=["note"],
@@ -123,6 +131,8 @@ class TestMakeSkos(unittest.TestCase):
         """Teste si les concepts SKOS sont correctement créés dans le fichier RDF de sortie."""
         self.full_output_file = make_skos(
             csv_path=self.csv_path,
+            imbrique=False,
+            csv_separateur=',',
             skos_prefLabel_columns=["label"],
             skos_definition_columns=["definition"],
             skos_notes_columns=["note"],
@@ -152,6 +162,8 @@ class TestMakeSkos(unittest.TestCase):
         namespace = "http://example.org/test#"
         self.full_output_file = make_skos(
             csv_path=self.csv_path,
+            imbrique=False,
+            csv_separateur=',',
             skos_prefLabel_columns=["label"],
             skos_definition_columns=["definition"],
             skos_notes_columns=["note"],
@@ -170,6 +182,88 @@ class TestMakeSkos(unittest.TestCase):
         for uri in uris:
             if uri.startswith("http"):
                 self.assertTrue(uri.startswith(namespace), "Toutes les URI doivent utiliser l’espace de noms spécifié.")
+
+    def test_missing_main_concept_name_when_not_imbrique(self):
+       """Teste si une exception est levée lorsque 'concept_main_name' est manquant avec imbrique=False."""
+       with self.assertRaises(ValueError) as context:
+           make_skos(
+                csv_path=self.csv_path,
+                imbrique=False,
+                csv_separateur=',',
+                skos_prefLabel_columns=["label"],
+                skos_definition_columns=["definition"],
+                namespace="http://example.org/test#",
+                scheme_id="test_scheme",
+                scheme_name="Schéma de Test",
+                scheme_definition="Définition du schéma de test",
+                output_file_name=self.output_file_path,
+           )
+       self.assertIn(
+           "Lorsque 'imbrique=False', 'concept_main_name' est obligatoire.",
+           str(context.exception),
+       )
+    
+    def test_missing_main_concept_preflabel_columns_when_imbrique(self):
+        """Teste si une exception est levée lorsque 'skos_main_concept_preflabel_columns' est manquant avec imbrique=True."""
+        with self.assertRaises(ValueError) as context:
+            make_skos(
+                csv_path=self.csv_path,
+                csv_separateur=',',
+                skos_prefLabel_columns=["label"],
+                skos_definition_columns=["definition"],
+                namespace="http://example.org/test#",
+                scheme_id="test_scheme",
+                scheme_name="Schéma de Test",
+                scheme_definition="Définition du schéma de test",
+                imbrique=True,
+                skos_main_concept_preflabel_columns=[""],
+                skos_main_concept_description_columns=[""],
+                skos_narrow_concept_preflabel_columns=[""],
+                skos_narrow_concept_description_columns=[""],
+                output_file_name=self.output_file_path,
+            )
+        self.assertIn(
+            "Lorsque 'imbrique=True', 'skos_main_concept_preflabel_columns' est obligatoire",
+            str(context.exception),
+        )
+    
+    def test_valid_params_with_imbrique_true(self):
+        """Teste si la fonction fonctionne correctement avec 'imbrique=True' et des paramètres valides."""
+        self.full_output_file = make_skos(
+            csv_path=self.csv_path,
+            csv_separateur=',',
+            skos_prefLabel_columns=["label"],
+            skos_definition_columns=["definition"],
+            namespace="http://example.org/test#",
+            scheme_id="test_scheme",
+            scheme_name="Schéma de Test",
+            scheme_definition="Définition du schéma de test",
+            imbrique=True,
+            skos_main_concept_preflabel_columns=["label"],
+            skos_main_concept_description_columns=["definition"],
+            skos_narrow_concept_preflabel_columns=["label2"],
+            skos_narrow_concept_description_columns=["definition2"],
+            output_file_name=self.output_file_path,
+        )
+        self.assertTrue(os.path.exists(self.full_output_file))
+
+    def test_valid_params_with_imbrique_false(self):
+        """Teste si la fonction fonctionne correctement avec 'imbrique=False' et des paramètres valides."""
+        self.full_output_file = make_skos(
+            csv_path=self.csv_path,
+            csv_separateur=',',
+            skos_prefLabel_columns=["label"],
+            skos_definition_columns=["definition"],
+            namespace="http://example.org/test#",
+            scheme_id="test_scheme",
+            scheme_name="Schéma de Test",
+            scheme_definition="Définition du schéma de test",
+            imbrique=False,
+            concept_main_name="Concept Principal",
+            concept_main_definition="Définition du concept principal",
+            output_file_name=self.output_file_path,
+        )
+        self.assertTrue(os.path.exists(self.full_output_file))
 
 if __name__ == "__main__":
     unittest.main()
